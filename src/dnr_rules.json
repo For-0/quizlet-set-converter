@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": { 
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "https://vocabustudy.org/quizlet/\\1/view/"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https://quizlet\\.com/(\\d+)/[\\w-]+/vocabustudy/?",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  } 
+]

@@ -1,0 +1,15 @@
+{
+  "name": "Export Quizlet to Vocabustudy",
+  "description": "Converting Quizlet sets to Vocabustudy sets has never been easier",
+  "version": "0.1",
+  "permissions": ["declarativeNetRequestWithHostAccess"],
+  "host_permissions": ["https://*.quizlet.com/*"],
+  "declarative_net_request": {
+    "rule_resources": [{
+      "id": "ruleset_1",
+      "enabled": true,
+      "path": "dnr_rules.json"
+    }]
+  },
+  "manifest_version": 3
+}
