@@ -1,0 +1,22 @@
+{
+  "name": "quizlet-set-converter",
+  "version": "0.1.0",
+  "description": "A simple web extension that allows you to easily convert a Quizlet set into a Vocabustudy set",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf src/_metadata quizlet-set-converter.zip",
+    "zip": "cd src && zip -r ../quizlet-set-converter.zip *",
+    "package": "npm run clean && npm run zip"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/For-0/quizlet-set-converter.git"
+  },
+  "keywords": [],
+  "author": "Vocabustudy Developers <management@vocabustudy.org>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/For-0/quizlet-set-converter/issues"
+  },
+  "homepage": "https://github.com/For-0/quizlet-set-converter#readme"
+}

@@ -1,6 +1,6 @@
 {
-  "name": "Quizlet to Vocabustudy Set Converter",
-  "description": "Importing Quizlet sets to Vocabustudy sets has never been easier",
+  "name": "__MSG_extName__",
+  "description": "__MSG_extDesc__",
   "version": "0.1.0",
   "permissions": ["declarativeNetRequestWithHostAccess"],
   "host_permissions": ["https://quizlet.com/*"],
@@ -27,5 +27,16 @@
       "https://nightly.vocabustudy.org/quizlet/*",
       "http://localhost:5000/quizlet/*"
     ]
-  }
+  },
+  "action": {
+    "default_icon": {
+      "128": "icons/icon-128.png",
+      "48": "icons/icon-48.png",
+      "32": "icons/icon-32.png",
+      "16": "icons/icon-16.png"
+    },
+    "default_title": "__MSG_actionTitle__"
+  },
+  "default_locale": "en",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlCLJmzjK3jU76GC3I8AeRV2eoEujNlCHSn1NgDXO6ZVZfAA1KNTaRPCLZlikcKq05xGKYZC+URPnED+ZVN1P6Bi5JeOEs27Q4y2GxySzn39RfmU49TxLeONK0e/7MruJl7nmQGKPKfQwCa6ApoE8ds86kQ+gp3aNUbA8oXNviGUzsWWcRcILRKiI3onrJFDLn5YFP/ZkNCJNVQvKH6SCA4c0YbRhxzevYboTfH/ivAt//m6UUp3M20tvtFpiPA9Me67zrGxRRg/8x9Y7wmWXzEvvaWbAwGnZL/4dLNCNiRi+dmYRLOAPYYCVBLnH8h0TCNwGcpqf3oTVguXBhvc6EwIDAQAB"
 }

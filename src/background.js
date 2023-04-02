@@ -1,4 +1,14 @@
-importScripts("./html5parser.min.js")
+importScripts("./html5parser.min.js");
+
+const imageSizes = [16, 32, 48, 128];
+
+/** Make a dictionary of pixel sizes to icon filenames for dynamically updating the action icon */
+function makeIconDict(iconName) {
+  return Object.fromEntries(imageSizes.map(size => [size, `icons/${iconName}-${size}.png`]))
+}
+
+const defaultIcon = makeIconDict("icon");
+const loadingIcon = makeIconDict("icon-loading");
 
 /** Convert Quizlet's rich text format into markdown + Vocabustudy classes */
 function parseRichTextItem({ marks, text, type }) {
@@ -6,22 +16,22 @@ function parseRichTextItem({ marks, text, type }) {
   if (!marks) return text;
   marks.forEach(({ type }) => {
     switch (type) {
-      case "b":
+      case "b": // bold
         text = `**${text}**`;
         break;
-      case "u":
+      case "u": // underline
         text = `<span class="is-underlined">${text}</span>`;
         break;
-      case "i":
+      case "i": // italic
         text = `*${text}*`;
         break;
-      case "bgY":
+      case "bgY": // yellow bg
         text = `<span class="text-bg-yellow">${text}</span>`;
         break;
-      case "bgB":
+      case "bgB": // blue bg
         text = `<span class="text-bg-blue">${text}</span>`;
         break;
-      case "bgP":
+      case "bgP": // purple bg
         text = `<span class="text-bg-red">${text}</span>`;
         break;
     }
@@ -62,10 +72,10 @@ async function getQuizletSet(setId) {
   const nextData = getNextData(resText);
   if (!nextData) return null;
   const reduxState = getReduxState(nextData);
-  console.log(reduxState);
   if (!reduxState) return null;
   const { title: name, description, numTerms, timestamp, lastModified } = reduxState.setPage.set;
   const { username: creator, id: uid } = reduxState.setPage.creator;
+  // timestamp and lastModified are in seconds
   const createTime = timestamp * 1000;
   const updateTime = lastModified * 1000;
   const pathParts = ["quizlet", setId];
@@ -73,7 +83,7 @@ async function getQuizletSet(setId) {
     let parsedWord = wordRichText ? parseRichText(wordRichText) : word;
     let parsedDefinition = definitionRichText ? parseRichText(definitionRichText) : definition;
     // Convert images to Vocabustudy Markdown images
-    if (_imageUrl) parsedWord += ` ![image](${_imageUrl})`;
+    if (_imageUrl) parsedWord += ` ![${chrome.i18n.getMessage("imageAltText")}](${_imageUrl})`;
     return {
       term: parsedWord,
       definition: parsedDefinition
@@ -82,10 +92,19 @@ async function getQuizletSet(setId) {
   return { name, description, numTerms, createTime, terms, updateTime, pathParts, creator, uid };
 }
 
-chrome.runtime.onMessageExternal.addListener((request, _sender, sendResponse) => {
+chrome.runtime.onMessageExternal.addListener((request, sender, sendResponse) => {
   if (request.type === "ping") sendResponse({ type: "pong" }); // Respond to availability detection pings
   else if (request.type === "fetch-set" && request.setId) {
-    getQuizletSet(request.setId).then(set => sendResponse(set));
+    // Visibly update that the extension is loading
+    chrome.action.setIcon({ tabId: sender.tab.id, path: loadingIcon });
+    chrome.action.setTitle({ tabId: sender.tab.id, title: chrome.i18n.getMessage("loadingActionTitle") })
+    getQuizletSet(request.setId)
+      .then(set => sendResponse(set))
+      .finally(() => {
+        // Reset the extension action
+        chrome.action.setIcon({ tabId: sender.tab.id, path: defaultIcon });
+        chrome.action.setTitle({ tabId: sender.tab.id, title: chrome.i18n.getMessage("actionTitle") })
+      });
     return true;
   }
 });

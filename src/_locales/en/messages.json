@@ -1,0 +1,22 @@
+{
+  "extName": {
+    "message": "Quizlet to Vocabustudy Set Converter",
+    "description": "Extension name"
+  },
+  "extDesc": {
+    "message": "Importing Quizlet sets to Vocabustudy sets has never been easier",
+    "description": "Extension description"
+  },
+  "imageAltText": {
+    "message": "Image",
+    "description": "Alt text for images converted from Quizlet sets"
+  },
+  "actionTitle": {
+    "message": "Quizlet -> Vocabustudy Converter",
+    "description": "Default title for the extension action"
+  },
+  "loadingActionTitle": {
+    "message": "Loading...",
+    "description": "Loading text for the extension action"
+  }
+}
