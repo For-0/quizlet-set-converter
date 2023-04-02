@@ -1,9 +1,12 @@
 {
-  "name": "Export Quizlet to Vocabustudy",
-  "description": "Converting Quizlet sets to Vocabustudy sets has never been easier",
-  "version": "0.1",
+  "name": "Quizlet to Vocabustudy Set Converter",
+  "description": "Importing Quizlet sets to Vocabustudy sets has never been easier",
+  "version": "0.1.0",
   "permissions": ["declarativeNetRequestWithHostAccess"],
-  "host_permissions": ["https://*.quizlet.com/*"],
+  "host_permissions": ["https://quizlet.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
   "declarative_net_request": {
     "rule_resources": [{
       "id": "ruleset_1",
@@ -17,5 +20,12 @@
     "48": "icons/icon-48.png",
     "32": "icons/icon-32.png",
     "16": "icons/icon-16.png"
+  },
+  "externally_connectable": {
+    "matches": [
+      "https://vocabustudy.org/quizlet/*",
+      "https://nightly.vocabustudy.org/quizlet/*",
+      "http://localhost:5000/quizlet/*"
+    ]
   }
 }
