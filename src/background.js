@@ -89,7 +89,19 @@ async function getQuizletSet(setId) {
       definition: parsedDefinition
     };
   });
-  return { name, description, numTerms, createTime, terms, updateTime, pathParts, creator, uid };
+  return {
+    name,
+    description,
+    numTerms,
+    createTime,
+    terms,
+    updateTime,
+    pathParts,
+    creator,
+    uid,
+    collections: [],
+    visibility: 2 // public by default
+  };
 }
 
 chrome.runtime.onMessageExternal.addListener((request, sender, sendResponse) => {
