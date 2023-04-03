@@ -1,0 +1,49 @@
+{
+  "name": "__MSG_extName__",
+  "description": "__MSG_extDesc__",
+  "version": "0.2.0",
+  "permissions": ["webRequest", "webRequestBlocking"],
+  "host_permissions": ["https://quizlet.com/*"],
+  "background": {
+    "scripts": ["/common/background.js", "/common/html5parser.min.js", "/background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://quizlet.com/*"],
+      "js": ["/common/inject-convert-button.js"]
+    },
+    {
+      "matches": ["https://vocabustudy.org/*"],
+      "js": ["allow-set-fetching.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "manifest_version": 3,
+  "icons": {
+    "128": "/common/icons/icon-128.png",
+    "48": "/common/icons/icon-48.png",
+    "32": "/common/icons/icon-32.png",
+    "16": "/common/icons/icon-16.png"
+  },
+  "action": {
+    "default_icon": {
+      "128": "/common/icons/icon-128.png",
+      "48": "/common/icons/icon-48.png",
+      "32": "/common/icons/icon-32.png",
+      "16": "/common/icons/icon-16.png"
+    },
+    "default_title": "__MSG_actionTitle__"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["/common/icons/icon-128.png"],
+      "matches": ["https://quizlet.com/*"]
+    }
+  ],
+  "default_locale": "en",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "quizlet-converter-firefox@vocabustudy.org"
+    }
+  }
+}

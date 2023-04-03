@@ -1,10 +1,8 @@
-importScripts("./html5parser.min.js");
-
 const imageSizes = [16, 32, 48, 128];
 
 /** Make a dictionary of pixel sizes to icon filenames for dynamically updating the action icon */
 function makeIconDict(iconName) {
-  return Object.fromEntries(imageSizes.map(size => [size, `icons/${iconName}-${size}.png`]))
+  return Object.fromEntries(imageSizes.map(size => [size, `/common/icons/${iconName}-${size}.png`]))
 }
 
 const defaultIcon = makeIconDict("icon");
@@ -103,20 +101,3 @@ async function getQuizletSet(setId) {
     visibility: 2 // public by default
   };
 }
-
-chrome.runtime.onMessageExternal.addListener((request, sender, sendResponse) => {
-  if (request.type === "ping") sendResponse({ type: "pong" }); // Respond to availability detection pings
-  else if (request.type === "fetch-set" && request.setId) {
-    // Visibly update that the extension is loading
-    chrome.action.setIcon({ tabId: sender.tab.id, path: loadingIcon });
-    chrome.action.setTitle({ tabId: sender.tab.id, title: chrome.i18n.getMessage("loadingActionTitle") })
-    getQuizletSet(request.setId)
-      .then(set => sendResponse(set))
-      .finally(() => {
-        // Reset the extension action
-        chrome.action.setIcon({ tabId: sender.tab.id, path: defaultIcon });
-        chrome.action.setTitle({ tabId: sender.tab.id, title: chrome.i18n.getMessage("actionTitle") })
-      });
-    return true;
-  }
-});

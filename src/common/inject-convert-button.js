@@ -10,6 +10,6 @@ if (firstButton && matched) {
   vocabustudyBtn.lastChild.remove();
   vocabustudyBtn.title = "Convert to Vocabustudy Set";
   vocabustudyBtn.addEventListener("click", () => location.href = `https://vocabustudy.org/quizlet/${matched[1]}/view/`);
-  vocabustudyBtn.appendChild(new Image(24, 24)).src = chrome.runtime.getURL("icons/icon-128.png");
+  vocabustudyBtn.appendChild(new Image(24, 24)).src = chrome.runtime.getURL("/common/icons/icon-128.png");
   firstButton.parentElement.parentElement.insertBefore(vocabustudyBtnContainer, firstButton.parentElement);
 }
