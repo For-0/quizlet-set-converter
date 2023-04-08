@@ -6,7 +6,6 @@ function makeIconDict(iconName) {
 }
 
 const defaultIcon = makeIconDict("icon");
-const loadingIcon = makeIconDict("icon-loading");
 
 /** Convert Quizlet's rich text format into markdown + Vocabustudy classes */
 function parseRichTextItem({ marks, text, type }) {

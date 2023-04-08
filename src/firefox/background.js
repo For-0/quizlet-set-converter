@@ -17,14 +17,7 @@ browser.webRequest.onBeforeRequest.addListener(requestDetails => {
 
 browser.runtime.onMessage.addListener((message, sender) => {
   if (sender.tab && message.type === "fetch-set") {
-    chrome.action.setIcon({ tabId: sender.tab.id, path: loadingIcon });
-    chrome.action.setTitle({ tabId: sender.tab.id, title: chrome.i18n.getMessage("loadingActionTitle") });
-    return getQuizletSet(message.setId)
-      .finally(() => {
-        // Reset the extension action
-        chrome.action.setIcon({ tabId: sender.tab.id, path: defaultIcon });
-        chrome.action.setTitle({ tabId: sender.tab.id, title: chrome.i18n.getMessage("actionTitle") })
-      });
+    return getQuizletSet(message.setId);
   }
 });
 

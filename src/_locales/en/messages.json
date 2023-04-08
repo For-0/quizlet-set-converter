@@ -14,9 +14,5 @@
   "actionTitle": {
     "message": "Quizlet -> Vocabustudy Converter",
     "description": "Default title for the extension action"
-  },
-  "loadingActionTitle": {
-    "message": "Loading...",
-    "description": "Loading text for the extension action"
   }
 }
