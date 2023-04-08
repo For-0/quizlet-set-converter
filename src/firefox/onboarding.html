@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome: Quizlet -> Vocabustudy Set Converter</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css" />
+  <link rel="icon" href="/common/icons/icon-48.png" />
+</head>
+<body>
+  <section id="section-instructions" hidden>
+    <h1>Thank you for installing the extension!</h1>
+    <hr/>
+    <p><strong>Before you begin, you'll need to allow the extension to:</strong></p>
+    <ul>
+      <li>
+        Access your data for <strong>https://quizlet.com</strong>.
+        <br/>
+        This allows the extension to fetch Quizlet sets. We don't collect (or care about) any of your personal Quizlet data.
+      </li>
+      <li>
+        Access your data for <strong>https://vocabustudy.org</strong>.
+        <br/>
+        This allows the extension to send the Quizlet sets it fetches to Vocabustudy. We don't collect any of your Vocabustudy data through this extension. (Why would we? It's our website!)
+      </li>
+    </ul>
+    <button id="btn-grant-permissions">Grant Permissions</button>
+  </section>
+  <section id="section-granted" hidden>
+    <h1>You're all set!</h1>
+    <hr/>
+    <p>All necessary permissions have been granted</p>
+    <p>Try going to a Quizlet set, like <a href="https://quizlet.com/786477317/unidad-5-vida-saludable-personal-wellness-flash-cards/" target="_blank" rel="noreferrer noopener">this one</a>, and clicking the Convert to Vocabustudy button!</p>
+  </section>
+  <script src="onboarding.js"></script>
+</body>
+</html>

@@ -5,7 +5,7 @@
   "permissions": ["webRequest", "webRequestBlocking"],
   "host_permissions": ["https://quizlet.com/*"],
   "background": {
-    "scripts": ["/common/background.js", "/common/html5parser.min.js", "/background.js"]
+    "scripts": ["/common/background.js", "/background.js"]
   },
   "content_scripts": [
     {
@@ -43,7 +43,8 @@
   "default_locale": "en",
   "browser_specific_settings": {
     "gecko": {
-      "id": "quizlet-converter-firefox@vocabustudy.org"
+      "id": "quizlet-set-converter-firefox@vocabustudy.org",
+      "update_url": "https://vocab-u-study.web.app/extension-updates.json"
     }
   }
 }
