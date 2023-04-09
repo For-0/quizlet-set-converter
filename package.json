@@ -1,6 +1,6 @@
 {
   "name": "quizlet-set-converter",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A simple web extension that allows you to easily convert a Quizlet set into a Vocabustudy set",
   "main": "index.js",
   "scripts": {
