@@ -86,3 +86,8 @@ async function getQuizletSet(setId) {
     visibility: 2 // public by default
   };
 }
+
+chrome.runtime.onInstalled.addListener(details => {
+  if (details.reason === "install")
+    chrome.tabs.create({ url: "/onboarding.html" });
+});

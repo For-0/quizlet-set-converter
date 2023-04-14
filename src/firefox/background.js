@@ -20,9 +20,3 @@ browser.runtime.onMessage.addListener((message, sender) => {
     return getQuizletSet(message.setId);
   }
 });
-
-browser.runtime.onInstalled.addListener(details => {
-  if (details.reason === "install") {
-    browser.tabs.create({ url: "/onboarding.html" });
-  }
-});
