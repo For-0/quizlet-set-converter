@@ -1,7 +1,7 @@
 {
   "name": "__MSG_extName__",
   "description": "__MSG_extDesc__",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "permissions": ["declarativeNetRequestWithHostAccess"],
   "host_permissions": ["https://quizlet.com/*"],
   "background": {
@@ -29,8 +29,7 @@
   },
   "externally_connectable": {
     "matches": [
-      "https://vocabustudy.org/quizlet/*",
-      "https://nightly.vocabustudy.org/quizlet/*"
+      "https://vocabustudy.org/quizlet/*"
     ]
   },
   "action": {

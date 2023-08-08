@@ -23,13 +23,13 @@ function parseRichTextItem({ marks, text, type }) {
         text = `*${text}*`;
         break;
       case "bgY": // yellow bg
-        text = `<span class="text-bg-yellow">${text}</span>`;
+        text = `<span class="bg-yellow-100 text-yellow-950">${text}</span>`;
         break;
       case "bgB": // blue bg
-        text = `<span class="text-bg-blue">${text}</span>`;
+        text = `<span class="bg-blue-100 text-blue-950">${text}</span>`;
         break;
       case "bgP": // purple bg
-        text = `<span class="text-bg-red">${text}</span>`;
+        text = `<span class="bg-purple-100 text-purple-950">${text}</span>`;
         break;
     }
   });
@@ -43,6 +43,16 @@ function parseRichText({ type, content }) {
     if (type !== "paragraph") return "";
     else return content.map(parseRichTextItem).join("");
   }).join("\n");
+}
+
+/** parse the media of a single card side */
+function parseMedia(media) {
+  return media.map(({ type, richText, plainText, url }) => {
+    if (type === 2) return `![${chrome.i18n.getMessage("imageAltText")}](${url})`;
+    else if (richText) return parseRichText(richText);
+    else if (plainText) return plainText;
+    return null;
+  }).filter(Boolean).join(" ");
 }
 
 function getReduxState(nextData) {
@@ -62,15 +72,14 @@ async function getQuizletSet(setId) {
   const createTime = timestamp * 1000;
   const updateTime = lastModified * 1000;
   const pathParts = ["quizlet", setId];
-  const terms = Object.values(reduxState.setPage.termIdToTermsMap).map(({ word, definition, _imageUrl, wordRichText, definitionRichText }) => {
-    let parsedWord = wordRichText ? parseRichText(wordRichText) : word;
-    let parsedDefinition = definitionRichText ? parseRichText(definitionRichText) : definition;
-    // Convert images to Vocabustudy Markdown images
-    if (_imageUrl) parsedWord += ` ![${chrome.i18n.getMessage("imageAltText")}](${_imageUrl})`;
+  const terms = reduxState.studyModesCommon.studiableData.studiableItems.map(({ cardSides }) => {
+    const { media: wordMedia } = cardSides.find(({ label }) => label === "word");
+    const { media: definitionMedia } = cardSides.find(({ label }) => label === "definition");
     return {
-      term: parsedWord,
-      definition: parsedDefinition
-    };
+      term: parseMedia(wordMedia),
+      definition: parseMedia(definitionMedia)
+    }
+
   });
   return {
     name,
@@ -87,7 +96,8 @@ async function getQuizletSet(setId) {
   };
 }
 
-chrome.runtime.onInstalled.addListener(details => {
-  if (details.reason === "install")
-    chrome.tabs.create({ url: "/onboarding.html" });
+chrome.runtime.onInstalled.addListener(() => {
+  browser.permissions.getAll().then(({ origins }) => {
+    if (origins.length <= 0) chrome.tabs.create({ url: "/onboarding.html" });
+  });
 });

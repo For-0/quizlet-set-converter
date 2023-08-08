@@ -1,4 +1,4 @@
-const firstButton = document.querySelector(".SetPageInformation-headerOptions button");
+const firstButton = document.querySelector(".SetPageHeader-headerOptions button");
 const matched = location.pathname.match(/(\d+)\/[\w-]+\/?/);
 if (firstButton && matched) {
   const vocabustudyBtnContainer = firstButton.parentElement.cloneNode(true);
