@@ -1,7 +1,7 @@
 {
   "name": "__MSG_extName__",
   "description": "__MSG_extDesc__",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "permissions": ["declarativeNetRequestWithHostAccess"],
   "host_permissions": ["https://quizlet.com/*"],
   "background": {

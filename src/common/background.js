@@ -97,7 +97,7 @@ async function getQuizletSet(setId) {
 }
 
 chrome.runtime.onInstalled.addListener(() => {
-  browser.permissions.getAll().then(({ origins }) => {
+  chrome.permissions.getAll().then(({ origins }) => {
     if (origins.length <= 0) chrome.tabs.create({ url: "/onboarding.html" });
   });
 });

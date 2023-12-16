@@ -1,15 +1,18 @@
 const firstButton = document.querySelector(".SetPageHeader-headerOptions button");
 const matched = location.pathname.match(/(\d+)\/[\w-]+\/?/);
 if (firstButton && matched) {
-  const vocabustudyBtnContainer = firstButton.parentElement.cloneNode(true);
-  /** @type {HTMLButtonElement} */
-  const vocabustudyBtn = vocabustudyBtnContainer.firstElementChild;
-  vocabustudyBtn.classList.remove("AssemblyIconButton--secondary");
-  vocabustudyBtn.classList.add("AssemblyIconButton--secondary-alwaysDark");
+  // Add a circular icon button with the convert icon
+  const vocabustudyBtn = document.createElement("a");
+  vocabustudyBtn.style.padding = "6px";
+  vocabustudyBtn.style.borderRadius = "50%";
+  vocabustudyBtn.classList.add("AssemblyButtonBase", "AssemblyButtonBase--medium", "AssemblyIconButton--secondary-alwaysDark");
   vocabustudyBtn.setAttribute("aria-label", "Convert to Vocabustudy");
-  vocabustudyBtn.lastChild.remove();
   vocabustudyBtn.title = "Convert to Vocabustudy Set";
-  vocabustudyBtn.addEventListener("click", () => location.href = `https://vocabustudy.org/quizlet/${matched[1]}/view/`);
-  vocabustudyBtn.appendChild(new Image(32, 32)).src = chrome.runtime.getURL("/common/icons/icon-128.png");
-  firstButton.parentElement.parentElement.insertBefore(vocabustudyBtnContainer, firstButton.parentElement);
+
+  vocabustudyBtn.href = `https://vocabustudy.org/quizlet/${matched[1]}/view/`;
+
+  const vocabustudyImage = vocabustudyBtn.appendChild(new Image(24, 24));
+  vocabustudyImage.src = chrome.runtime.getURL("/common/icons/icon-128.png");
+
+  firstButton.parentElement.prepend(vocabustudyBtn);
 }

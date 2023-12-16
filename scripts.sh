@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Usage: ./scripts.sh dev firefox|chrome
+# ./scripts.sh package
+
 clean () { rm -rf build; }
 
 zip_ext () {
@@ -47,8 +50,10 @@ dev () {
   replace_local $1
 }
 
+# Check to make sure $1 is a valid function
 if declare -f "$1" > /dev/null
 then
+  # Call function
   "$@"
 else
   echo "'$1' is not a valid command" >&2
