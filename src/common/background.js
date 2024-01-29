@@ -6,6 +6,7 @@ function makeIconDict(iconName) {
 }
 
 const defaultIcon = makeIconDict("icon");
+const quizletCdnImage = /https:\/\/o.quizlet.com\/[a-zA-Z0-9]_m\.png/;
 
 /** Convert Quizlet's rich text format into markdown + Vocabustudy classes */
 function parseRichTextItem({ marks, text, type }) {
@@ -48,7 +49,12 @@ function parseRichText({ type, content }) {
 /** parse the media of a single card side */
 function parseMedia(media) {
   return media.map(({ type, richText, plainText, url }) => {
-    if (type === 2) return `![${chrome.i18n.getMessage("imageAltText")}](${url})`;
+    if (type === 2) {
+      // Make images higher quality
+      if (url.match(quizletCdnImage)) url = url.replace("_m.png", ".png");
+
+      return `![${chrome.i18n.getMessage("imageAltText")}](${url})`;
+    }
     else if (richText) return parseRichText(richText);
     else if (plainText) return plainText;
     return null;
@@ -92,7 +98,9 @@ async function getQuizletSet(setId) {
     creator,
     uid,
     collections: [],
-    visibility: 2 // public by default
+    visibility: 2, // public by default
+    comments: {},
+    likes: []
   };
 }
 
