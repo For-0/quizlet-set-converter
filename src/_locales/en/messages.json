@@ -12,7 +12,7 @@
     "description": "Alt text for images converted from Quizlet sets"
   },
   "actionTitle": {
-    "message": "Quizlet -> Vocabustudy Converter",
+    "message": "Convert Quizlet set",
     "description": "Default title for the extension action"
   }
 }

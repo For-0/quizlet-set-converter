@@ -1,17 +1,13 @@
 {
   "name": "__MSG_extName__",
   "description": "__MSG_extDesc__",
-  "version": "1.0",
+  "version": "1.1",
   "permissions": ["webRequest", "webRequestBlocking"],
   "host_permissions": ["https://quizlet.com/*"],
   "background": {
     "scripts": ["/common/background.js", "/background.js"]
   },
   "content_scripts": [
-    {
-      "matches": ["https://quizlet.com/*"],
-      "js": ["/common/inject-convert-button.js"]
-    },
     {
       "matches": ["https://vocabustudy.org/*"],
       "js": ["allow-set-fetching.js"],

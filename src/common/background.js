@@ -41,7 +41,7 @@ function parseRichTextItem({ marks, text, type }) {
 function parseRichText({ type, content }) {
   if (type !== "doc") return "";
   return content.map(({ type, content }) => {
-    if (type !== "paragraph") return "";
+    if (type !== "paragraph" || !content) return "";
     else return content.map(parseRichTextItem).join("");
   }).join("\n");
 }
@@ -107,5 +107,20 @@ async function getQuizletSet(setId) {
 chrome.runtime.onInstalled.addListener(() => {
   chrome.permissions.getAll().then(({ origins }) => {
     if (origins.length <= 0) chrome.tabs.create({ url: "/onboarding.html" });
+  });
+});
+
+chrome.action.onClicked.addListener(async tab => {
+  if (!tab.url) return;
+
+  // only on quizlet set pages
+  const matched = tab.url.match(/^https:\/\/quizlet.com\/(\d+)\/[\w-]+\/?/);
+
+  if (!matched) return;
+
+  const vocabustudyUrl = `https://vocabustudy.org/quizlet/${matched[1]}/view/`;
+
+  await chrome.tabs.update(tab.id, {
+    url: vocabustudyUrl,
   });
 });
